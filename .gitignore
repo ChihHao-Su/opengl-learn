@@ -4,7 +4,6 @@ build
 # editor files
 .vs
 
-
 # Prerequisites
 *.d
 
