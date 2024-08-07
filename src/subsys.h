@@ -6,4 +6,6 @@
 #define INIT_SUBSYS(name) __subsys_##name::init()
 
 #define IMPL_SUBSYS_INTERNAL namespace __internal
+#define DECL_SUBSYS_INTERNAL namespace __internal
+
 #define SUBSYS_INTERNAL __internal

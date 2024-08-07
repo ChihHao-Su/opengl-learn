@@ -60,7 +60,7 @@ namespace OpenGL {
 	{
 		return &data;
 	}
-	GLRes& GLRes::operator =(GLRes&& other) {
+	GLRes& GLRes::operator =(GLRes&& other) noexcept {
 
 		if(this->deleter)
 			deleter(data);
@@ -75,6 +75,12 @@ namespace OpenGL {
 	{
 		if(this->deleter)
 			deleter(data);
+	}
+
+	void swap(GLRes& lhs, GLRes& rhs)
+	{
+		std::swap(lhs.data, rhs.data);
+		std::swap(lhs.deleter, rhs.deleter);
 	}
 
 	GLRes makeShader(GLuint shader)

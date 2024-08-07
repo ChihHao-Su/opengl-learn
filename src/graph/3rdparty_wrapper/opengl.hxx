@@ -39,13 +39,14 @@ namespace OpenGL {
 		GLuint data;
 		std::function<void(GLuint)> deleter;
 	public:
-	GLRes();
+		GLRes();
 		GLRes(GLuint &data, std::function<void(GLuint)> deleter);
-	GLRes(GLRes&& other);
+		GLRes(GLRes&& other);
 		operator GLuint();
 		GLuint* operator &();
-	GLRes& operator =(const GLRes& other) = delete;
-	GLRes& operator =(GLRes&& other);
+		friend void swap(GLRes &lhs, GLRes &rhs);
+		GLRes& operator =(const GLRes& other) = delete;
+		GLRes& operator =(GLRes&& other) noexcept;
 		~GLRes();
 	};
 

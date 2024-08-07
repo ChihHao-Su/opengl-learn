@@ -1,0 +1,1 @@
+#include "igraph_obj_variant.hxx"

@@ -11,7 +11,10 @@
 #include <iostream>
 #include <print>
 #include <utility>
+#include <variant>
 #include <optional>
+
+#include <gsl/span>
 
 #include <glad/gles2.h>
 #include <GLFW/glfw3.h>
@@ -23,7 +26,7 @@
 #include <essentials/excp.hxx>
 #include <essentials/panic.hxx>
 #include <essentials/file.hxx>
-#include <essentials/ref.inl>
+//#include <essentials/ref.inl>
 #include <essentials/platform/terminal.hxx>
 
 #include "subsys.h"

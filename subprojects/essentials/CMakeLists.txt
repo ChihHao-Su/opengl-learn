@@ -9,7 +9,7 @@ add_library(essentials SHARED
 	"src/essentials/file.cxx"
 	"src/essentials/excp.cxx"
 	"src/essentials/platform/terminal.cxx"
- "src/essentials/ref.ixx")
+)
 
 target_include_directories(essentials PUBLIC
 	src

@@ -16,6 +16,7 @@ add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/MP>" "$<$<CXX_COMPILER_ID:MSVC>:
 ## 1. Dependencies ###########################
 find_package(glfw3 CONFIG REQUIRED)
 find_package(OpenGL REQUIRED)
+find_package(Microsoft.GSL CONFIG REQUIRED)
 add_subdirectory(subprojects/essentials/)
 add_subdirectory(thirdparty/glad2_gles3/)
 add_subdirectory(thirdparty/dear_imgui/)
@@ -23,10 +24,10 @@ add_subdirectory(thirdparty/dear_imgui/)
 ## 2. Executable target ############################
 add_executable(imgui_glfw_learn
 	src/stdafx.cpp
-	src/main.cxx
+	"src/main.cxx"
 	"src/graph/3rdparty_wrapper/opengl.cxx"
 	"src/graph/3rdparty_wrapper/dear_imgui.cxx"
- "src/graph/igraph_obj.cxx" "src/graph/std_3d_vertices_based_graph_obj.cxx" "src/graph/graph_subsys.cxx" "src/graph/screen_plane_graph_obj.cxx")
+ "src/graph/igraph_obj_itfc.cxx" "src/graph/std_3d_vertices_based_graph_obj.cxx" "src/graph/graph_subsys.cxx"  "src/graph/igraph_obj_variant.cxx" "src/graph/vert_array_drawer.cxx")
 
 target_precompile_headers(imgui_glfw_learn PRIVATE src/stdafx.h)
 
@@ -35,6 +36,7 @@ target_link_libraries(imgui_glfw_learn PRIVATE
 	glad2_gles30
 	glfw
 	OpenGL::GL
+	Microsoft.GSL::GSL
 	essentials
 )
 

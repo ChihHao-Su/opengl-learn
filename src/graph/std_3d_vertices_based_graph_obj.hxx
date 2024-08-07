@@ -1,7 +1,8 @@
 #ifndef STD_3D_VERTICES_BASED_GRAPH_OBJ
 #define STD_3D_VERTICES_BASED_GRAPH_OBJ
 
-#include "igraph_obj.hxx"
+#include "igraph_obj_itfc.hxx"
+//#include "graph_subsys.hxx"
 #include "3rdparty_wrapper/opengl.hxx"
 
 namespace Graph {
@@ -11,15 +12,22 @@ namespace Graph {
 	 */
 	class Std3DVerticesBasedGraphObj SATISFIES(IGraphObj)
 	{
-	private:
-		OpenGL::GLRes shadersProgram;
-		OpenGL::GLRes vertexArr;
-		OpenGL::GLRes texture;
-		 targetFb;
-		std::function<void()> render;
 	public:
+		//Std3DVerticesBasedGraphObj()
+		//Std3DVerticesBasedGraphObj(Std3DVerticesBasedGraphObj&&) = default;
+		OpenGL::GLRes shadersProgram;
+		//OpenGL::GLRes vertexArr;
+		gsl::span<GLfloat> vertex;
+		size_t offsetInGlobalVbo;
+		bool shouldReinitGlobalVBO = false;
 
-		void draw() override;
+		OpenGL::GLRes texture;
+
+		std::function<void(const Std3DVerticesBasedGraphObj&)> render;
+
+	public:
+		void onDraw() override;
+		void onReinitGlobalVBO(std::function<size_t(const gsl::span<GLfloat> &vertex)> pushVertex) override;
 	};
 }
 
