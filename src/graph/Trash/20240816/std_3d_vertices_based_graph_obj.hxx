@@ -15,13 +15,13 @@ namespace Graph {
 	public:
 		//Std3DVerticesBasedGraphObj()
 		//Std3DVerticesBasedGraphObj(Std3DVerticesBasedGraphObj&&) = default;
-		OpenGL::GLRes shadersProgram;
-		//OpenGL::GLRes vertexArr;
+		OpenGL::GLIndividualRes shadersProgram;
+		//OpenGL::GLIndividualRes vertexArr;
 		gsl::span<GLfloat> vertex;
 		size_t offsetInGlobalVbo;
 		bool shouldReinitGlobalVBO = false;
 
-		OpenGL::GLRes texture;
+		OpenGL::GLIndividualRes texture;
 
 		std::function<void(const Std3DVerticesBasedGraphObj&)> render;
 

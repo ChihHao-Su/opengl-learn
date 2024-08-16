@@ -11,21 +11,21 @@ IMPL_SYBSYS(Graph)
 
 	IMPL_SUBSYS_INTERNAL
 	{
-		OpenGL::GLRes screenPlaneVA;
+		OpenGL::GLIndividualRes screenPlaneVA;
 
-		OpenGL::GLRes screenPlaneProgram;
-		OpenGL::GLRes screenPlaneFb;
-		OpenGL::GLRes screenPlaneTexture;
-		OpenGL::GLRes masterSceneScreenFb;
-		OpenGL::GLRes masterSceneScreenTexture;
-		OpenGL::GLRes slaveSceneScreenFb;
-		OpenGL::GLRes slaveSceneScreenTexture;
+		OpenGL::GLIndividualRes screenPlaneProgram;
+		OpenGL::GLIndividualRes screenPlaneFb;
+		OpenGL::GLIndividualRes screenPlaneTexture;
+		OpenGL::GLIndividualRes masterSceneScreenFb;
+		OpenGL::GLIndividualRes masterSceneScreenTexture;
+		OpenGL::GLIndividualRes slaveSceneScreenFb;
+		OpenGL::GLIndividualRes slaveSceneScreenTexture;
 		float masterAndSlaveScnFbBlend = 0.0f;
 
 		std::vector<Graph::IGraphObj> masterSceneGraphObjs;
 		std::vector<Graph::IGraphObj> slaveSceneGraphObjs;
 
-		OpenGL::GLRes createScreenPlaneGPUProgram() {
+		OpenGL::GLIndividualRes createScreenPlaneGPUProgram() {
 			return createGlShadersProgram(
 				File::read("res/screen_shader.vert"),
 				File::read("res/screen_shader.frag")
@@ -62,6 +62,7 @@ IMPL_SYBSYS(Graph)
 		   SUBSYS_INTERNAL::screenPlaneVA = std::move(screenVertexArray);
 		}
 
+
 		void reinitGlobalVBOandVAO() {
 			std::vector<GLfloat> globalVBOVertexs;
 
@@ -85,19 +86,18 @@ IMPL_SYBSYS(Graph)
 			}
 		}
 
-		void initGlWindow() {
-			OpenGL::createGLWindow();
-		}
+
 	};
 
 	IMPL_SYBSYS_INIT_FUNC() {
-		SUBSYS_INTERNAL::initGlWindow();
 		reloadScreenGlProgram();
 		SUBSYS_INTERNAL::createScreenVertex();
-		/*SUBSYS_INTERNAL::createScreenFb();
 
-		SUBSYS_INTERNAL::createMasterSceneScreenFb();
-		SUBSYS_INTERNAL::createSlaveSceneScreenFb();*/
+		// Init screen plane, master scene screen, slave scene frame buffers.
+
+
+		//glGenFramebuffers(3, )
+
 	}
 
 	void onFrame() {
@@ -153,12 +153,12 @@ IMPL_SYBSYS(Graph)
 		SUBSYS_INTERNAL::screenPlaneProgram = SUBSYS_INTERNAL::createScreenPlaneGPUProgram();
 	}
 
-	OpenGL::GLRes createGlShadersProgram(
+	OpenGL::GLIndividualRes createGlShadersProgram(
 			const std::string &vertShaderSrc,
 			const std::string &fragShaderSrc
 	) {
-		OpenGL::GLRes newVertexShader;
-		OpenGL::GLRes newFragShader;
+		OpenGL::GLIndividualRes newVertexShader;
+		OpenGL::GLIndividualRes newFragShader;
 
 		newVertexShader = compileShader(vertShaderSrc, GL_VERTEX_SHADER);
 		newFragShader = compileShader(fragShaderSrc, GL_FRAGMENT_SHADER);
@@ -172,7 +172,7 @@ IMPL_SYBSYS(Graph)
 		return newScreenProgram;
 	}
 
-	string getShaderInfoLog(OpenGL::GLRes &shader) {
+	string getShaderInfoLog(OpenGL::GLIndividualRes &shader) {
 		GLint totalLength = 0;
 		glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &totalLength);
 		std::string logs;
@@ -187,7 +187,7 @@ IMPL_SYBSYS(Graph)
 	}
 
 
-	OpenGL::GLRes compileShader(const std::string &src, const GLenum shaderType) {
+	OpenGL::GLIndividualRes compileShader(const std::string &src, const GLenum shaderType) {
 		auto shader = OpenGL::makeShader(glCreateShader(shaderType));
 		UNSAFE(
 			auto shaderSrcCStr = src.c_str();

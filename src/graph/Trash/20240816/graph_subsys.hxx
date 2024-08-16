@@ -6,10 +6,10 @@
 
 DECL_SYBSYS(Graph)
 {
-	// extern OpenGL::GLRes mainScreenGlProgram;
-	// extern OpenGL::GLRes mainScreenFb;
-	// extern OpenGL::GLRes masterSceneScreenFb;
-	// extern OpenGL::GLRes slaveSceneScreenFb;
+	// extern OpenGL::GLIndividualRes mainScreenGlProgram;
+	// extern OpenGL::GLIndividualRes mainScreenFb;
+	// extern OpenGL::GLIndividualRes masterSceneScreenFb;
+	// extern OpenGL::GLIndividualRes slaveSceneScreenFb;
 	// extern float masterAndSlaveScnFbBlend;
 
 	//extern std::vector<Graph::IGraphObj> masterSceneGraphObjs;
@@ -22,7 +22,7 @@ DECL_SYBSYS(Graph)
 		void reinitGlobalVBOandVAO();
 	}
 
-	extern OpenGL::GLRes globalVBO;
+	extern OpenGL::GLIndividualRes globalVBO;
 	
 	enum class Scene {
 		MASTER_SCN,
@@ -64,9 +64,9 @@ DECL_SYBSYS(Graph)
 	}
 
 
-	std::string getShaderInfoLog(OpenGL::GLRes &shader);
-	OpenGL::GLRes compileShader(const std::string &src, const GLenum shaderType);
-	OpenGL::GLRes createGlShadersProgram(
+	std::string getShaderInfoLog(OpenGL::GLIndividualRes &shader);
+	OpenGL::GLIndividualRes compileShader(const std::string &src, const GLenum shaderType);
+	OpenGL::GLIndividualRes createGlShadersProgram(
 		const std::string & vertShaderSrc,
 		const std::string & fragShaderSrc
 	);

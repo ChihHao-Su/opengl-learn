@@ -5,7 +5,7 @@ using namespace std;
 using namespace Essentials;
 
 
-pair<OpenGL::GLRes, OpenGL::GLRes> createScreenVertexs () {
+pair<OpenGL::GLIndividualRes, OpenGL::GLIndividualRes> createScreenVertexs () {
 	static GLfloat vertexs[] = {
 		 // Coords     // texCoords
 		 1.0f, -1.0f,  1.0f, 0.0f,
@@ -35,7 +35,7 @@ pair<OpenGL::GLRes, OpenGL::GLRes> createScreenVertexs () {
 
 
 
-pair<OpenGL::GLRes, OpenGL::GLRes> initScreenFbAndTexture() {
+pair<OpenGL::GLIndividualRes, OpenGL::GLIndividualRes> initScreenFbAndTexture() {
 	// Init screen texture
 	auto screenFrameBuffer = OpenGL::makeFrameBuffer();
 	glGenFramebuffers(1, &screenFrameBuffer);
@@ -120,7 +120,7 @@ void drawUI() {
 
 }
 
-void renderUIToScreenFb(GLFWwindow& win, OpenGL::GLRes &screenFrameBuffer) {
+void renderUIToScreenFb(GLFWwindow& win, OpenGL::GLIndividualRes &screenFrameBuffer) {
 	// Rendering
 	GL_BIND_FRAME_BUFFER(screenFrameBuffer, BEGIN(
 		ImGui::Render();
@@ -144,7 +144,7 @@ void renderUIToScreenFb(GLFWwindow& win, OpenGL::GLRes &screenFrameBuffer) {
 	));
 }
 
-void paintScreenTextureOnScreen(GLFWwindow& win, OpenGL::GLRes& screenTexture, OpenGL::GLRes& screenVertexArray, OpenGL::GLRes& screenGPUProg) {
+void paintScreenTextureOnScreen(GLFWwindow& win, OpenGL::GLIndividualRes& screenTexture, OpenGL::GLIndividualRes& screenVertexArray, OpenGL::GLIndividualRes& screenGPUProg) {
 
 	int display_w, display_h;
 	glfwGetFramebufferSize(&win, &display_w, &display_h);

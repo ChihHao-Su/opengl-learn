@@ -27,7 +27,8 @@ add_executable(imgui_glfw_learn
 	"src/main.cxx"
 	"src/graph/3rdparty_wrapper/opengl.cxx"
 	"src/graph/3rdparty_wrapper/dear_imgui.cxx"
- "src/graph/igraph_obj_itfc.cxx" "src/graph/std_3d_vertices_based_graph_obj.cxx" "src/graph/graph_subsys.cxx"  "src/graph/igraph_obj_variant.cxx" "src/graph/vert_array_drawer.cxx")
+	"src/graph/vertex.cxx"
+ "src/graph/rendering/irenderer_itfc.cxx" "src/graph/rendering/irenderer_variant.cxx" "src/graph/rendering/simple_2d_geo_renderer.cxx")
 
 target_precompile_headers(imgui_glfw_learn PRIVATE src/stdafx.h)
 

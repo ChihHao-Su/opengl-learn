@@ -25,9 +25,10 @@ using Ref = std::shared_ptr<T>;
 #define SATISFIES(traitName) \
 	: private __trait_itfc_##traitName
 
-#define DEF_TRAIT_ITFC(traitName) class __trait_itfc_##traitName
+#define DEF_TRAIT_ITFC(traitName) struct __trait_itfc_##traitName
 
 #define DEF_TRAIT_VARIANT(traitName, ...) \
 	using traitName = std::variant<__VA_ARGS__>;
+
 
 #define FUNC_CLASS struct

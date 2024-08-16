@@ -31,38 +31,8 @@
 /**
  * Poor encapsulation to OpenGL resources.
  */
-namespace OpenGL {
+namespace Graph::OpenGL {
 	using GLFWWindowBox = Box<GLFWwindow, std::function<void(GLFWwindow*)>>;
-
-	class GLRes {
-	private:
-		GLuint data;
-		std::function<void(GLuint)> deleter;
-	public:
-		GLRes();
-		GLRes(GLuint &data, std::function<void(GLuint)> deleter);
-		GLRes(GLRes&& other);
-		operator GLuint();
-		GLuint* operator &();
-		friend void swap(GLRes &lhs, GLRes &rhs);
-		GLRes& operator =(const GLRes& other) = delete;
-		GLRes& operator =(GLRes&& other) noexcept;
-		~GLRes();
-	};
-
-	GLRes makeShader(GLuint shader = 0);
-
-	GLRes makeBuffer(GLuint buffer = 0);
-
-	GLRes makeTexture(GLuint texture = 0);
-
-	GLRes makeRenderBuffer(GLuint renderBuffer = 0);
-
-	GLRes makeFrameBuffer(GLuint frameBuffer = 0);
-
-	GLRes makeProgram(GLuint program = 0);
-
-	GLRes makeVertexArray(GLuint vertexArray = 0);
 
 	extern const char* glsl_version;
 
@@ -70,6 +40,118 @@ namespace OpenGL {
 
 	void clearErrs();
 
+	class GLIndividualRes {
+	private:
+		GLuint data;
+		std::function<void(GLuint)> deleter;
+	public:
+		GLIndividualRes();
+		GLIndividualRes(GLuint &data, std::function<void(GLuint)> deleter);
+		GLIndividualRes(GLIndividualRes&& other) = default;
+		operator GLuint();
+		GLuint* operator &();
+		friend void swap(GLIndividualRes &lhs, GLIndividualRes &rhs);
+		GLIndividualRes& operator =(const GLIndividualRes& other) = delete;
+		GLIndividualRes& operator =(GLIndividualRes&& other) noexcept;
+		~GLIndividualRes();
+	};
+
+	GLIndividualRes makeShader(GLuint shader = 0);
+
+	GLIndividualRes makeBuffer(GLuint buffer = 0);
+
+	GLIndividualRes makeTexture(GLuint texture = 0);
+
+	GLIndividualRes makeRenderBuffer(GLuint renderBuffer = 0);
+
+	GLIndividualRes makeFrameBuffer(GLuint frameBuffer = 0);
+
+	GLIndividualRes makeProgram(GLuint program = 0);
+
+	GLIndividualRes makeVertexArray(GLuint vertexArray = 0);
+
+	
+
+
+	template <std::size_t Nres>
+	class GLArrRes {
+	private:
+		std::array<GLuint, Nres> data;
+		std::function<void(std::array<GLuint, Nres> &)> deleter;
+		bool initialized = false;
+
+	public:
+		// Constructor
+		GLArrRes() = default;
+
+		GLArrRes(
+			const std::array<GLuint, Nres>& initData,
+			std::function<void(std::array<GLuint, Nres>&)> deleter
+		)
+			: data(initData), deleter(deleter), initialized(true) {}
+
+		// Move constructor
+		GLArrRes(GLArrRes&& other) noexcept
+			: data(std::move(other.data)), deleter(other.deleter), initialized(other.initialized) {
+			other.initialized = false;
+		}
+
+		// Move assignment
+		GLArrRes& operator=(GLArrRes&& other) noexcept {
+			if (this == &other) 
+				return *this;
+			if (initialized) {
+				deleter(data);
+			}
+			data = std::move(other.data);
+			deleter = other.deleter;
+			initialized = other.initialized;
+			other.initialized = false;
+		}
+
+		// Deleted copy constructor and copy assignment operator
+		GLArrRes(const GLArrRes&) = delete;
+		GLArrRes& operator=(const GLArrRes&) = delete;
+
+		// Destructor
+		~GLArrRes() {
+			if (initialized) {
+				deleter(data);
+			}
+		}
+
+		// Accessor for resources
+		const std::array<GLuint, Nres>& getResources() const {
+			return data;
+		}
+
+		// Accessor for a specific resource
+		GLuint getResource(std::size_t index) const override {
+			return data.at(index);
+		}
+	};
+
+
+	class GLResHolder
+	{
+	private:
+		std::move_only_function<GLuint()> getGLRawRes;
+	public:
+		template<std::size_t Nres>
+		GLResHolder(Ref<GLArrRes<Nres>> arrRes, size_t index)
+			: getGLRawRes([arrRes, index]() { return arrRes->getResource(index); })
+		{ }
+
+		GLResHolder(GLIndividualRes&& res);
+
+		GLResHolder(const GLResHolder&) = delete;
+		GLResHolder(GLResHolder&&) = default;
+
+		operator GLuint();
+
+	};
+
+	
 }
 
 #endif // !OPENGL_HXX
