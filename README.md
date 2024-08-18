@@ -12,8 +12,9 @@
 	- 使用包管理器管理依賴。
 
 ## 構建
+請確保伱安裝了 VCPKG，然後：
 ```sh
-vcpkg install .
-cmake --preset=default
+mkdir build && cd build
+cmake --preset=default ..
 ```
 
