@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.26)
 project(imgui_glfw_learn LANGUAGES CXX)
 
+## pre. Options
+option(VS_IDE "Enable Visual Studio IDE experience improvement" OFF)
+
 ## 0. Language specification #################
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -27,8 +30,8 @@ add_executable(imgui_glfw_learn
 	"src/main.cxx"
 	"src/graph/3rdparty_wrapper/opengl.cxx"
 	"src/graph/3rdparty_wrapper/dear_imgui.cxx"
-	"src/graph/vertex.cxx"
- "src/graph/rendering/irenderer_itfc.cxx" "src/graph/rendering/irenderer_variant.cxx" "src/graph/rendering/simple_2d_geo_renderer.cxx")
+	"src/graph/Pojo/vertex.cxx"
+ "src/graph/rendering/irenderer_itfc.cxx" "src/graph/rendering/irenderer_variant.cxx" "src/graph/rendering/simple_2d_geo_renderer.cxx" "src/graph/Serv/graph_api_serv.cxx")
 
 target_precompile_headers(imgui_glfw_learn PRIVATE src/stdafx.h)
 
@@ -43,15 +46,21 @@ target_link_libraries(imgui_glfw_learn PRIVATE
 
 add_dependencies(imgui_glfw_learn essentials glad2_gles30 dear_imgui_gles2_glfwbackend_no_gl_loader)
 
-## 3. Post-build actions #####################
-# 3.0. Windows: Copy all dlls to executable's build folder.
+## 3. IDE experience improvement
+if(${VS_IDE})
+	include("cmake/ide_xp/visual_studio.cmake")
+	enable_vs_guideline_checker(imgui_glfw_learn essentials)
+endif()
+
+## 4. Post-build actions #####################
+# 4.0. Windows: Copy all dlls to executable's build folder.
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
 	add_custom_command(TARGET imgui_glfw_learn POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E copy_if_different $<TARGET_RUNTIME_DLLS:imgui_glfw_learn> $<TARGET_FILE_DIR:imgui_glfw_learn>
 		COMMAND_EXPAND_LISTS
 	)
 endif()
-# 3.1. Copy all resources folder into executable's build folder.
+# 4.1. Copy all resources folder into executable's build folder.
 add_custom_target(copy_assets
 	COMMAND ${CMAKE_COMMAND} -E copy_directory_if_different ${CMAKE_CURRENT_SOURCE_DIR}/res $<TARGET_FILE_DIR:imgui_glfw_learn>/res
 	COMMAND_EXPAND_LISTS
@@ -59,7 +68,7 @@ add_custom_target(copy_assets
 add_dependencies(imgui_glfw_learn copy_assets)
 
 
-## 4. Install ################################
+## 5. Install ################################
 include(GNUInstallDirs)
 install(TARGETS imgui_glfw_learn
 	LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}

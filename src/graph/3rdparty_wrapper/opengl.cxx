@@ -164,13 +164,22 @@ namespace Graph::OpenGL {
 		};
 	}
 
-	GLResHolder::GLResHolder(GLIndividualRes&& res)
-		: getGLRawRes([res = std::move(res)]() mutable -> GLuint { return res; })
-	{ }
+	∃GLResView::∃GLResView(GLIndividualRes& res)
+		: getGLRawRes([&res]() -> GLuint { return res; })
+	{
+	}
 
-	GLResHolder::operator GLuint()
+	∃GLResView::operator GLuint()
 	{
 		return getGLRawRes();
 	}
 
+	∃GLResHolder::∃GLResHolder(GLIndividualRes&& res)
+		: getGLRawRes([res = std::move(res)]() mutable -> GLuint { return res; })
+	{ }
+
+	∃GLResHolder::operator GLuint()
+	{
+		return getGLRawRes();
+	}
 };
