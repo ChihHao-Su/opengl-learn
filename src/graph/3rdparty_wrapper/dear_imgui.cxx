@@ -1,7 +1,7 @@
 #include "dear_imgui.hxx"
 #include "opengl.hxx"
 
-namespace DImGui {
+namespace Graph::DImGui {
 	Guard initWithGLFW(GLFWwindow& win)
 	{
 		// Setup Dear ImGui context

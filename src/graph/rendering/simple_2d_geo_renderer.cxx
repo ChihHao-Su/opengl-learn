@@ -1,6 +1,8 @@
 #include "simple_2d_geo_renderer.hxx"
+#include "../Serv/graph_api_serv.hxx"
 namespace Graph::Rendering {
-	Simple2DGeoRenderer::Simple2DGeoRenderer(Ref<∃GLResHolder> targetFb)
+
+	Simple2DGeoRenderer::Simple2DGeoRenderer(Ref<GLResHolder> targetFb)
 		:
 		targetFb(targetFb),
 		vb([] {
@@ -8,12 +10,10 @@ namespace Graph::Rendering {
 			glGenBuffers(1, &res);
 			return res;
 		}()),
-		vShader([] {
-			auto shader = makeShader(glCreateShader(GL_VERTEX_SHADER));
-
-		}()),
-		fShader(makeShader(glCreateShader(GL_VERTEX_SHADER)))
-	
+		shaderProg(GraphApiServ::createGLShadersProgByFile(
+			"",
+			""
+		))
 	{
 
 	}

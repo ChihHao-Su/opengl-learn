@@ -6,15 +6,14 @@ namespace Graph::Rendering {
 	using namespace OpenGL;
 	class Simple2DGeoRenderer SATISFIES(IRenderer) {
 	public:
-		Simple2DGeoRenderer(Ref<∃GLResHolder> targetFb);
+		Simple2DGeoRenderer(Ref<GLResHolder> targetFb);
 
 		void onFlush() override;
 
 	private:
-		Ref<∃GLResHolder> targetFb;
-		∃GLResHolder vb;
-		∃GLResHolder vShader;
-		∃GLResHolder fShader;
+		Ref<GLResHolder> targetFb;
+		GLResHolder vb;
+		GLResHolder shaderProg;
 	};
 };
 

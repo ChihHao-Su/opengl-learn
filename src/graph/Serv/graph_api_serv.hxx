@@ -4,11 +4,19 @@
 #include "../3rdparty_wrapper/opengl.hxx"
 
 namespace Graph::GraphApiServ {
-	std::string getShaderInfoLog(OpenGL::GLIndividualRes& shader);
-	void compileShader(const std::string& src, const GLenum shaderType);
-	OpenGL::GLIndividualRes createGlShadersProgram(
+	using namespace Graph::OpenGL;
+	std::string getShaderInfoLog(GLResView shader);
+
+	GLIndividualRes createShader(const std::string& src, const GLenum shaderType);
+
+	GLIndividualRes createGLShadersProg(
 		const std::string& vertShaderSrc,
 		const std::string& fragShaderSrc
+	);
+
+	GLIndividualRes createGLShadersProgByFile(
+		const std::filesystem::path vertShaderSrcFile,
+		const std::filesystem::path fragShaderSrcFile
 	);
 }
 

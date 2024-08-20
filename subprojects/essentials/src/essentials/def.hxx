@@ -11,7 +11,7 @@ using Box = std::unique_ptr<T, D>;
 template<class T>
 using Ref = std::shared_ptr<T>;
 
-#define UNSAFE(sth) sth
+#define UNSAFE_PRONE(sth) sth
 
 #define FINALLY(actions) \
 	auto finalAct = gsl::finally([&]{ \

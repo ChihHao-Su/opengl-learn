@@ -76,8 +76,8 @@ namespace Graph::OpenGL {
 	template <std::size_t Nres>
 	class GLArrRes {
 	private:
-		std::array<GLuint, Nres> data;
-		std::function<void(std::array<GLuint, Nres> &)> deleter;
+		GLuint data;
+		std::function<void(GLuint, size_t)> deleter;
 		bool initialized = false;
 
 	public:
@@ -85,8 +85,8 @@ namespace Graph::OpenGL {
 		GLArrRes() = default;
 
 		GLArrRes(
-			const std::array<GLuint, Nres>& initData,
-			std::function<void(std::array<GLuint, Nres>&)> deleter
+			GLuint initData,
+			std::function<void(GLuint, size_t)> deleter
 		)
 			: data(initData), deleter(deleter), initialized(true) {}
 
@@ -101,7 +101,7 @@ namespace Graph::OpenGL {
 			if (this == &other) 
 				return *this;
 			if (initialized) {
-				deleter(data);
+				deleter(data, Nres);
 			}
 			data = std::move(other.data);
 			deleter = other.deleter;
@@ -116,26 +116,21 @@ namespace Graph::OpenGL {
 		// Destructor
 		~GLArrRes() {
 			if (initialized) {
-				deleter(data);
+				deleter(data, Nres);
 			}
 		}
 
 		// Accessor for resources
-		const std::array<GLuint, Nres>& getResources() const {
-			return data;
-		}
-
-		// Accessor for a specific resource
-		GLuint getResource(std::size_t index) const override {
-			return data.at(index);
+		GLuint* operator &() {
+			return &data;
 		}
 	};
 
 	/**
-	 * Existential type. A ∃GLResView is A VIEW to an OpenGL resource.
+	 * Existential type. A GLResView is A VIEW to an OpenGL resource.
 	 * 
 	 * This class is for refereing to an existing OpenGL resource without creating
-	 * a ∃GLResHolder, so that code below:
+	 * a GLResHolder, so that code below:
 	 * 
 	 * ```
 	 * GLIndividualRes shader1 { makeShader1() };
@@ -143,11 +138,11 @@ namespace Graph::OpenGL {
 	 * 
 	 * // Ah, just because of calling of doSomethingToShader, we need these bunch of
 	 * // code, and we cannot use `shader1` anymore (shader1 has been moved)!
-	 * ∃GLResHolder realShader1 { std::move(shader1) };
-	 * ∃GLResHolder realShader2 { shader2And3, 0 };
-	 * ∃GLResHolder realShader3 { shader2And3, 1 };
+	 * GLResHolder realShader1 { std::move(shader1) };
+	 * GLResHolder realShader2 { shader2And3, 0 };
+	 * GLResHolder realShader3 { shader2And3, 1 };
 	 * 
-	 * // void doSomethingToShader(∃GLResHolder &a, ∃GLResHolder &b, ∃GLResHolder &c);
+	 * // void doSomethingToShader(GLResHolder &a, GLResHolder &b, GLResHolder &c);
 	 * doSomethingToShader(realShader1, realShader2, realShader3);
 	 * ```
 	 * 
@@ -157,53 +152,58 @@ namespace Graph::OpenGL {
 	 * GLIndividualRes shader1 { makeShader1() };
 	 * GLArrRes<2> shader2And3 { makeShader2() };
 	 * 
-	 * // void doSomethingToShader(∃GLResView a, ∃GLResView b, ∃GLResView c);
+	 * // void doSomethingToShader(GLResView a, GLResView b, GLResView c);
 	 * doSomethingToShader(realShader1, {realShader2, 0}, {realShader3, 1});
 	 * ```
 	 */
-	class ∃GLResView
+	class GLResView
 	{
 	private:
-		std::move_only_function<GLuint()> getGLRawRes;
+		std::function<GLuint()> getGLRawRes;
 	public:
 		template<std::size_t Nres>
-		∃GLResView(GLArrRes<Nres> &arrRes, size_t index)
+		GLResView(GLArrRes<Nres> &arrRes, size_t index)
 			: getGLRawRes([&arrRes, index]() { return arrRes->getResource(index); })
 		{ }
 
-		∃GLResView(GLIndividualRes& res);
+		GLResView(GLIndividualRes& res);
 
-		∃GLResView(const ∃GLResView&) = default;
-		∃GLResView(∃GLResView&&) = default;
+		GLResView(const GLResView&) = default;
+		GLResView(GLResView&&) = default;
 
 		operator GLuint();
 	};
 
 	/**
-	 * Existential type. A ∃GLResHolder REPRESENTS an unique OpenGL resource.
+	 * Existential type. A GLResHolder REPRESENTS an unique OpenGL resource.
 	 */
-	class ∃GLResHolder
+	class GLResHolder
 	{
 	private:
 		std::move_only_function<GLuint()> getGLRawRes;
 	public:
-		// Multiple ∃GLResHolder share a GLArrRes<Nres>, so retain a Ref<> in the lambda.
+		// Multiple GLResHolder share a GLArrRes<Nres>, so retain a Ref<> in the lambda.
 		// Because there's multiple OpenGL resources inside a GLArrRes<Nres>. A 
-		// GLArrRes<Nres> should die after all ∃GLResHolder that refer to it are dead.
+		// GLArrRes<Nres> should die after all GLResHolder that refer to it are dead.
 		template<std::size_t Nres>
-		∃GLResHolder(Ref<GLArrRes<Nres>> arrRes, size_t index)
+		GLResHolder(Ref<GLArrRes<Nres>> arrRes, size_t index)
 			: getGLRawRes([arrRes, index]() { return arrRes->getResource(index); })
 		{ }
 
-		// A GLIndividualRes can be owned by only one ∃GLResHolder.
-		∃GLResHolder(GLIndividualRes&& res);
+		// A GLIndividualRes can be owned by only one GLResHolder.
+		GLResHolder(GLIndividualRes&& res);
 
-		∃GLResHolder(const ∃GLResHolder&) = delete;
-		∃GLResHolder(∃GLResHolder&&) = default;
+		GLResHolder(const GLResHolder&) = delete;
+		GLResHolder(GLResHolder&&) = default;
 
 		operator GLuint();
 
 	};
+
+
+
+
+
 
 	
 }
