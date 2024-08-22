@@ -2,6 +2,16 @@
 #include "../Excp/shader_compile_failed_excp.hxx"
 
 namespace Graph::GraphApiServ {
+	GLIndividualRes createADynVbo(GLuint size)
+	{
+		auto vbo = makeBuffer();
+		glGenBuffers(1, &vbo);
+		/* GL_BIND_ARR_BUFFER(vbo, BEGIN()); */
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
+		glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
+		return vbo;
+	}
+
 	std::string getShaderInfoLog(GLResView shader)
 	{
 		GLint totalLength = 0;
@@ -14,6 +24,8 @@ namespace Graph::GraphApiServ {
 		logs.pop_back();
 		logs.pop_back();
 
+		std::shared_ptr<std::string> a{ new std::string() };
+		
 		return logs;
 	}
 

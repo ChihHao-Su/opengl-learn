@@ -5,6 +5,9 @@
 
 namespace Graph::GraphApiServ {
 	using namespace Graph::OpenGL;
+
+	GLIndividualRes createADynVbo(GLuint size);
+
 	std::string getShaderInfoLog(GLResView shader);
 
 	GLIndividualRes createShader(const std::string& src, const GLenum shaderType);

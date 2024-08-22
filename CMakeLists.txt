@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.26)
 project(imgui_glfw_learn LANGUAGES CXX)
 
 ## pre. Options
-option(VS_IDE "Enable Visual Studio IDE experience improvement" OFF)
+
 
 ## 0. Language specification #################
 set(CMAKE_CXX_STANDARD 23)
@@ -46,11 +46,6 @@ target_link_libraries(imgui_glfw_learn PRIVATE
 
 add_dependencies(imgui_glfw_learn essentials glad2_gles30 dear_imgui_gles2_glfwbackend_no_gl_loader)
 
-## 3. IDE experience improvement
-if(${VS_IDE})
-	include("cmake/ide_xp/visual_studio.cmake")
-	enable_vs_guideline_checker(imgui_glfw_learn essentials)
-endif()
 
 ## 4. Post-build actions #####################
 # 4.0. Windows: Copy all dlls to executable's build folder.

@@ -6,7 +6,6 @@ namespace Graph {
 		glm::vec3 pos;
 		glm::vec4 colour;
 		glm::vec2 uv;
-		GLuint texIndex;
 	};
 }
 

@@ -6,13 +6,23 @@ namespace Graph::Rendering {
 	using namespace OpenGL;
 	class Simple2DGeoRenderer SATISFIES(IRenderer) {
 	public:
-		Simple2DGeoRenderer(Ref<GLResHolder> targetFb);
+		Simple2DGeoRenderer();
 
 		void onFlush() override;
 
 	private:
-		Ref<GLResHolder> targetFb;
+		//Ref<GLResHolder> targetFb;
+		struct VBOFrag
+		{
+
+		};
+		
+		const GLuint maxQuads = 100;
+		const GLuint maxVert = maxQuads * 4;
+		const GLuint maxIndices = maxVert * 6;
+
 		GLResHolder vb;
+
 		GLResHolder shaderProg;
 	};
 };

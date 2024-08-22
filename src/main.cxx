@@ -1,14 +1,14 @@
 using namespace std;
 using namespace Essentials;
 
-#include "graph/std_3d_vertices_based_graph_obj.hxx"
+/*#include "graph/std_3d_vertices_based_graph_obj.hxx"
 #include "graph/graph_subsys.hxx"
-#include "graph/3rdparty_wrapper/dear_imgui.hxx"
+#include "graph/3rdparty_wrapper/dear_imgui.hxx"*/
 
 
 
 void start() {
-	auto glWin = OpenGL::createGLWindow();
+	/*auto glWin = OpenGL::createGLWindow();
 
 	INIT_SUBSYS(Graph);
 
@@ -26,7 +26,7 @@ void start() {
 		glfwPollEvents();
 
 		SUBSYS(Graph)::onFrame();
-	}
+	}*/
 }
 
 int main()

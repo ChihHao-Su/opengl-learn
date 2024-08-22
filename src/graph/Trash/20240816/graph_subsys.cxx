@@ -85,8 +85,6 @@ IMPL_SYBSYS(Graph)
 				}, mgo);
 			}
 		}
-
-
 	};
 
 	IMPL_SYBSYS_INIT_FUNC() {
