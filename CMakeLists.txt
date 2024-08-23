@@ -20,6 +20,7 @@ add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/MP>" "$<$<CXX_COMPILER_ID:MSVC>:
 find_package(glfw3 CONFIG REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(Microsoft.GSL CONFIG REQUIRED)
+find_package(Boost REQUIRED COMPONENTS container)
 add_subdirectory(subprojects/essentials/)
 add_subdirectory(thirdparty/glad2_gles3/)
 add_subdirectory(thirdparty/dear_imgui/)
@@ -31,7 +32,7 @@ add_executable(imgui_glfw_learn
 	"src/graph/3rdparty_wrapper/opengl.cxx"
 	"src/graph/3rdparty_wrapper/dear_imgui.cxx"
 	"src/graph/Pojo/vertex.cxx"
- "src/graph/rendering/irenderer_itfc.cxx" "src/graph/rendering/irenderer_variant.cxx" "src/graph/rendering/simple_2d_geo_renderer.cxx" "src/graph/Serv/graph_api_serv.cxx")
+ "src/graph/rendering/irenderer_itfc.cxx" "src/graph/rendering/irenderer_variant.cxx" "src/graph/rendering/simple_2d_geo_renderer.cxx" "src/graph/Serv/graph_api_serv.cxx" "src/graph/Pojo/mesh.cxx")
 
 target_precompile_headers(imgui_glfw_learn PRIVATE src/stdafx.h)
 
@@ -41,6 +42,7 @@ target_link_libraries(imgui_glfw_learn PRIVATE
 	glfw
 	OpenGL::GL
 	Microsoft.GSL::GSL
+	Boost::container
 	essentials
 )
 

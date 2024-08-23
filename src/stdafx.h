@@ -15,6 +15,8 @@
 #include <optional>
 #include <any>
 
+#include <boost/container/static_vector.hpp>
+
 #include <gsl/span>
 
 #include <glad/gles2.h>

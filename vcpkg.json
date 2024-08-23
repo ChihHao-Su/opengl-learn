@@ -1,13 +1,14 @@
 {
-  "name": "example-project",
-  "version-string": "0.0.1",
-  "license": "MIT",
-  "dependencies": [
-    "glfw3",
-    "globjects",
-    "opengl",
-    "fmt",
-    "ms-gsl",
-    "boost-stacktrace"
-  ]
+	"name": "example-project",
+	"version-string": "0.0.1",
+	"license": "MIT",
+	"dependencies": [
+		"glfw3",
+		"globjects",
+		"opengl",
+		"fmt",
+		"ms-gsl",
+		"boost-stacktrace",
+		"boost-container"
+	]
 }

@@ -12,10 +12,7 @@ namespace Graph::Rendering {
 
 	private:
 		//Ref<GLResHolder> targetFb;
-		struct VBOFrag
-		{
-
-		};
+	
 		
 		const GLuint maxQuads = 100;
 		const GLuint maxVert = maxQuads * 4;
