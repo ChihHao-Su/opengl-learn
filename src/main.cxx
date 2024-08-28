@@ -1,6 +1,10 @@
 using namespace std;
 using namespace Essentials;
 
+using namespace Essentials::Memory;
+
+#include "graph/Pojo/mesh.hxx"
+
 /*#include "graph/std_3d_vertices_based_graph_obj.hxx"
 #include "graph/graph_subsys.hxx"
 #include "graph/3rdparty_wrapper/dear_imgui.hxx"*/
@@ -29,8 +33,31 @@ void start() {
 	}*/
 }
 
+
+
+StaticObjHolder<Graph::Mesh> d {{
+	{
+		{
+			{1.0f, 2.0f, 2.2f}
+		}
+	}
+}};
+
+
+/*
+boost::container::static_vector <Graph::Mesh, 1> mrshes {
+	{
+		{
+			{
+				{0.1f, 1.2f, 2.2f}
+			}
+		}
+	}
+};*/
+
 int main()
 {
+
 	((void(*)())nullptr)();	// FIXME:
 
 	Platform::Terminal::initDefaultSetting();

@@ -9,6 +9,8 @@ add_library(essentials SHARED
 	"src/essentials/file.cxx"
 	"src/essentials/excp.cxx"
 	"src/essentials/platform/terminal.cxx"
+	"src/essentials/memory/static_obj_ref.cxx"
+	"src/essentials/memory/static_obj_holder.cxx"
 )
 
 target_include_directories(essentials PUBLIC

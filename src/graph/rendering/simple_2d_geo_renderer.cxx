@@ -16,8 +16,14 @@ namespace Graph::Rendering {
 
 	}
 
-	void Simple2DGeoRenderer::onFlush() {
+	void Simple2DGeoRenderer::regMesh(StaticObjHolder<Mesh>& mesh) {
+		meshes.push_back(mesh);
 
+		// 把 mesh 的顶点数据放到 vboContent
+		GLuint curren
 	}
 
+	void Simple2DGeoRenderer::flush() {
+		
+	}
 }

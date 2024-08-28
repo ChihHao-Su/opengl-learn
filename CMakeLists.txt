@@ -32,7 +32,13 @@ add_executable(imgui_glfw_learn
 	"src/graph/3rdparty_wrapper/opengl.cxx"
 	"src/graph/3rdparty_wrapper/dear_imgui.cxx"
 	"src/graph/Pojo/vertex.cxx"
- "src/graph/rendering/irenderer_itfc.cxx" "src/graph/rendering/irenderer_variant.cxx" "src/graph/rendering/simple_2d_geo_renderer.cxx" "src/graph/Serv/graph_api_serv.cxx" "src/graph/Pojo/mesh.cxx")
+	"src/graph/rendering/irenderer_itfc.cxx"
+	"src/graph/rendering/irenderer_variant.cxx"
+	"src/graph/rendering/simple_2d_geo_renderer.cxx"
+	"src/graph/Serv/graph_api_serv.cxx"
+	"src/graph/Pojo/mesh.cxx"
+	"src/graph/Pojo/mesh_inst.cxx"
+)
 
 target_precompile_headers(imgui_glfw_learn PRIVATE src/stdafx.h)
 
