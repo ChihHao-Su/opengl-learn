@@ -1,0 +1,14 @@
+Checks: >-
+  android-*,
+  boost-*,
+  bugprone-*,
+  clang-analyzer-*,
+  concurrency-*,
+  cppcoreguidelines-*,
+  modernize-*,
+  performance-*,
+  portability-*,
+  readability-*,
+  llvm-include-order,
+
+WarningsAsErrors: '*'
