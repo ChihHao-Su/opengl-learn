@@ -2,8 +2,12 @@
 #include "../Serv/graph_api_serv.hxx"
 #include "../Pojo/vertex.hxx"
 
+<<<<<<< HEAD
 namespace Graph::Rendering
 {
+=======
+namespace Graph::Rendering {
+>>>>>>> master
 
 	Simple2DGeoRenderer::Simple2DGeoRenderer()
 		:
@@ -20,6 +24,7 @@ namespace Graph::Rendering
 	void Simple2DGeoRenderer::regMesh(StaticObjHolder<Mesh>& mesh) {
 		meshes.push_back(mesh);
 
+<<<<<<< HEAD
 		// 记录 mesh 的顶点数据的起始位置
 		GLfloat *meshBeginOffset = dataToUploadToGPU.vboContent.end().get_ptr();
 
@@ -44,11 +49,18 @@ namespace Graph::Rendering
 
 		mesh->gpuRuntimeData = { meshBeginOffset, meshDataSize };
 
+=======
+		// 把 mesh 的顶点数据放到 vboContent
+		GLuint curren
+>>>>>>> master
 	}
 
 	void Simple2DGeoRenderer::flush() {
 		
 	}
+<<<<<<< HEAD
 
 	
+=======
+>>>>>>> master
 }

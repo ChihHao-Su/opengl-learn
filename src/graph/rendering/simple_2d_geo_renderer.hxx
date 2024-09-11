@@ -19,14 +19,22 @@ namespace Graph::Rendering {
 
 	private:
 		//Ref<GLResHolder> targetFb;
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> master
 		//boost::container::static_vector<StaticObjHolder<Mesh>, 1000> meshese;
 		boost::container::static_vector<StaticObjRef<Mesh>, 165000> meshes;
 		boost::container::static_vector<StaticObjRef<MeshInst>, 165000> meshInsts;
 
 		struct DataToUploadToGPU
 		{
+<<<<<<< HEAD
 			boost::container::static_vector<GLfloat, 165000> vboContent;
+=======
+			boost::container::static_vector<GLuint, 165000> vboContent;
+>>>>>>> master
 		} dataToUploadToGPU;
 		
 		const GLuint maxQuads = 100;

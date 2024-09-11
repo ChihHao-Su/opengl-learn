@@ -6,7 +6,11 @@ namespace Graph::Rendering {
 	using namespace OpenGL;
 
 	DEF_TRAIT_ITFC(IRenderer) {
+<<<<<<< HEAD
 		virtual void flush() = 0;
+=======
+		virtual void onFlush() = 0;
+>>>>>>> master
 	};
 }
 

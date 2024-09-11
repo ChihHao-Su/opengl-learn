@@ -18,6 +18,7 @@ namespace Essentials::Memory
 		int refCount;
 	};
 
+<<<<<<< HEAD
 
 	/**
 	 * 一个非动态存储期对象的 Holder。
@@ -27,6 +28,8 @@ namespace Essentials::Memory
 	 * 当 StaticObjHolder 持有的非动态存储期对象销毁时，若仍存在引用
 	 * 之的 StaticObjRef，程序将终止并显示错误信息。
 	 */
+=======
+>>>>>>> master
 	template<class T>
 	class StaticObjHolder {
 	public:
@@ -43,8 +46,13 @@ namespace Essentials::Memory
 			impl.release();
 		}
 
+<<<<<<< HEAD
 		T* operator->() { return &obj; }
 		T* operator&()  { return &obj; }
+=======
+		T* operator->() const { return &obj; }
+		T* operator&() const { return &obj; }
+>>>>>>> master
 
 	private:
 		T obj;

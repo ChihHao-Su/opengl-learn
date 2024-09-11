@@ -8,6 +8,7 @@
 
 namespace Essentials::Memory
 {
+<<<<<<< HEAD
 	/**
 	 * 一个对 StaticObjHolder 的引用。
 	 * 
@@ -16,6 +17,8 @@ namespace Essentials::Memory
 	 * 当 StaticObjHolder 持有的非动态存储期对象销毁时，若仍存在引用
 	 * 之的 StaticObjRef，程序将终止并显示错误信息。
 	 */
+=======
+>>>>>>> master
 	template<typename T>
 	class StaticObjRef
 	{
@@ -33,6 +36,7 @@ namespace Essentials::Memory
 		StaticObjRef(StaticObjRef<T>&& other) = default;
 
 		void assign(StaticObjHolder<T>& newHolder) {
+<<<<<<< HEAD
 			holder->release();
 			holder = std::addressof(newHolder);
 			holder->retain();
@@ -61,6 +65,28 @@ namespace Essentials::Memory
 
 		bool operator ==(const T& obj) const {
 			return &*holder == &obj;
+=======
+			holder.release();
+			holder = &newHolder;
+			holder.sustain();
+		}
+
+		StaticObjRef& operator=(const StaticObjRef<T>& other) {
+			assign(other.holder);
+			return this;
+		}
+		StaticObjRef& operator=(StaticObjHolder<T>& newHolder) {
+			assign(newHolder);
+			return this;
+		}
+
+		T* operator&() const {
+			return holder;
+		}
+
+		T& operator->() const {
+			return &holder;
+>>>>>>> master
 		}
 
 
