@@ -25,5 +25,5 @@ void Platform::Terminal::initCharset()
 #endif
 
 void Platform::Terminal::disableBuffering() {
-	setvbuf(stdout, NULL, _IONBF, 0);
+    setvbuf(stdout, nullptr, _IONBF, 0);
 }

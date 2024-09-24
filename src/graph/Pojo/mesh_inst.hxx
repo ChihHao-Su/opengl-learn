@@ -1,8 +1,6 @@
 #ifndef MESH_INST_HXX
 #define MESH_INST_HXX
 
-<<<<<<< HEAD
-
 
 namespace Graph
 {
@@ -16,14 +14,6 @@ namespace Graph
 
 		static StaticObjHolder<MeshInst> create(StaticObjRef<Mesh> &mesh, glm::mat3 transform);
 		~MeshInst();
-=======
-namespace Graph
-{
-	struct MeshInst
-	{
-		StaticObjRef<Mesh> mesh;
-		glm::mat4 transform;
->>>>>>> master
 	};
 }
 

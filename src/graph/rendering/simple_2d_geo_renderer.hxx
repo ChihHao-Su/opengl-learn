@@ -15,33 +15,30 @@ namespace Graph::Rendering {
 
 		void regMesh(StaticObjHolder<Mesh> &mesh);
 
-		void flush() override;
+        void flushAllMeshesToGPU();
+
+        void render() override;
 
 	private:
-		//Ref<GLResHolder> targetFb;
-<<<<<<< HEAD
+        static const GLuint maxVert = 165000;
+        static const GLuint maxIndices = 100000;
 
-=======
-	
->>>>>>> master
+		//Ref<GLResHolder> targetFb;
 		//boost::container::static_vector<StaticObjHolder<Mesh>, 1000> meshese;
 		boost::container::static_vector<StaticObjRef<Mesh>, 165000> meshes;
 		boost::container::static_vector<StaticObjRef<MeshInst>, 165000> meshInsts;
 
 		struct DataToUploadToGPU
 		{
-<<<<<<< HEAD
-			boost::container::static_vector<GLfloat, 165000> vboContent;
-=======
-			boost::container::static_vector<GLuint, 165000> vboContent;
->>>>>>> master
+            boost::container::static_vector<GLfloat, maxVert> vboContent;
+            boost::container::static_vector<GLuint, maxIndices> eboContent;
 		} dataToUploadToGPU;
 		
-		const GLuint maxQuads = 100;
-		const GLuint maxVert = maxQuads * 4;
-		const GLuint maxIndices = maxVert * 6;
+
 
 		GLResHolder vb;
+        int vaIndex;
+        GLResHolder va;
 
 		GLResHolder shaderProg;
 	};

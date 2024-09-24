@@ -8,6 +8,8 @@ namespace Graph::GraphApiServ {
 
 	GLIndividualRes createADynVbo(GLuint size);
 
+    GLIndividualRes createAVao(GLuint index, GLint size, GLenum type, GLboolean isNormalized, GLsizei stride, const GLvoid *pointer);
+
 	std::string getShaderInfoLog(GLResView shader);
 
 	GLIndividualRes createShader(const std::string& src, const GLenum shaderType);

@@ -3,9 +3,6 @@
 
 namespace Essentials::Memory
 {
-	_StaticObjHolderImpl::_StaticObjHolderImpl()
-	{
-	}
 	_StaticObjHolderImpl::~_StaticObjHolderImpl()
 	{
 		if (refCount > 0) {

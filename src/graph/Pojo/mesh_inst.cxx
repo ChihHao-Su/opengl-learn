@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #include "mesh_inst.hxx"
 #include "mesh.hxx"
 
@@ -18,6 +17,3 @@ namespace Graph
 	}
 
 }
-=======
-#include "mesh_inst.hxx"
->>>>>>> master

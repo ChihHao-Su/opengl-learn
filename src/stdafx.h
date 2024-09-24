@@ -34,6 +34,7 @@
 #include <essentials/platform/terminal.hxx>
 #include <essentials/memory/static_obj_holder.hxx>
 #include <essentials/memory/static_obj_ref.hxx>
+#include <essentials/math/random.hxx>
 
 #include "subsys.h"
 

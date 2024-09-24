@@ -33,7 +33,7 @@ namespace Essentials {
 			// std::type_identity_t is needed to prevent deduction.
 			PanicFormat<std::type_identity_t<Args>...> fmt,
 			Args &&...args
-		) {
+        ) noexcept {
 			auto prompt = std::format(
 				"終止：{}，位於文件 {}:{}，調用棧：\n",
 				std::format(fmt.fmt, std::forward<Args>(args)...),
@@ -54,7 +54,7 @@ namespace Essentials {
 			// std::type_identity_t is needed to prevent deduction.
 			PanicFormat<std::type_identity_t<Args>...> fmt,
 			Args &&...args
-		) {
+        ) noexcept {
 			auto prompt = std::format(
 				"終止：{}，位於文件 {}:{}，調用棧：\n",
 				std::format(fmt.fmt, std::forward<Args>(args)...),

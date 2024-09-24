@@ -1,9 +1,9 @@
 #include "graph_api_serv.hxx"
 #include "../Excp/shader_compile_failed_excp.hxx"
 
-namespace Graph::GraphApiServ {
-	GLIndividualRes createADynVbo(GLuint size)
-	{
+namespace Graph::GraphApiServ
+{
+    GLIndividualRes createADynVbo(GLuint size) {
 		auto vbo = makeBuffer();
 		glGenBuffers(1, &vbo);
 		/* GL_BIND_ARR_BUFFER(vbo, BEGIN()); */
@@ -12,8 +12,14 @@ namespace Graph::GraphApiServ {
 		return vbo;
 	}
 
-	std::string getShaderInfoLog(GLResView shader)
-	{
+    GLIndividualRes createAVao(GLuint index, GLint size, GLenum type, GLboolean isNormalized, GLsizei stride, const GLvoid *pointer) {
+        auto vao = makeVertexArray();
+        glGenVertexArrays(1, &vao);
+        glBindVertexArray(vao);
+        glVertexAttribPointer(index, size, type, isNormalized, stride, pointer);
+    }
+
+    std::string getShaderInfoLog(GLResView shader) {
 		GLint totalLength = 0;
 		glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &totalLength);
 		std::string logs;
@@ -29,8 +35,7 @@ namespace Graph::GraphApiServ {
 		return logs;
 	}
 
-	GLIndividualRes createShader(const std::string& src, const GLenum shaderType)
-	{
+    GLIndividualRes createShader(const std::string& src, const GLenum shaderType) {
 		auto shader = OpenGL::makeShader(glCreateShader(shaderType));
 		UNSAFE_PRONE(
 			auto shaderSrcCStr = src.c_str();
@@ -49,8 +54,7 @@ namespace Graph::GraphApiServ {
 		return shader;
 	}
 
-	GLIndividualRes createGLShadersProg(const std::string& vertShaderSrc, const std::string& fragShaderSrc)
-	{
+    GLIndividualRes createGLShadersProg(const std::string& vertShaderSrc, const std::string& fragShaderSrc) {
 		GLIndividualRes newVertexShader;
 		GLIndividualRes newFragShader;
 
@@ -66,8 +70,7 @@ namespace Graph::GraphApiServ {
 		return newScreenProgram;
 	}
 
-	GLIndividualRes createGLShadersProgByFile(const std::filesystem::path vertShaderSrcFile, const std::filesystem::path fragShaderSrcFile)
-	{
+    GLIndividualRes createGLShadersProgByFile(const std::filesystem::path vertShaderSrcFile, const std::filesystem::path fragShaderSrcFile) {
 		return createGLShadersProg(
 			Essentials::File::read(vertShaderSrcFile),
 			Essentials::File::read(fragShaderSrcFile)

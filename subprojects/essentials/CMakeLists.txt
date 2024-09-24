@@ -13,7 +13,8 @@ add_library(essentials SHARED
 	"src/essentials/memory/static_obj_holder.cxx"
 )
 
-target_include_directories(essentials PUBLIC
+target_include_directories(essentials PUBLI
+    src/essentials/math/random.hxx src/essentials/math/random.cxxC
 	src
 )
 
